@@ -90,7 +90,7 @@ public class PosServiceImpl implements PosService {
 			double commisionDifference = transaction.getCommission() - transactionOld.getCommission();
 
 
-			Account account = accountRepository.findById(transaction.getAccountId()).get(); 
+			Account account = accountRepository.findById(transaction.getAccountId()).get();
 			account.setBalance(account.getBalance() + amountDifference - commisionDifference);
 			accountRepository.save(account);
 
