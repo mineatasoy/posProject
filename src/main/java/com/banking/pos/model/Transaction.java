@@ -2,7 +2,6 @@ package com.banking.pos.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -17,14 +16,9 @@ public class Transaction {
 	private static final String ORIGIN_VISA="VISA";
 	private static final String ORIGIN_MASTER="MASTER";
 	
-	private static final double ORIGIN_COMMISION_RATE_VISA=0.1;
-	private static final double ORIGIN_COMMISION_RATE_MASTER=0.2;
+	private static final double ORIGIN_COMMISION_RATE_VISA=0.01;
+	private static final double ORIGIN_COMMISION_RATE_MASTER=0.02;
 	
-
-//	@Id
-//	@GeneratedValue
-//	@Column(name="ID",updatable = false)
-//	int Id;
 	
 	@Column(name="MESSAGETYPE",updatable = true)
 	private String messageType;
@@ -43,21 +37,21 @@ public class Transaction {
 	private double amount;
 	
 	@Column
-	private double commission; //??
+	private double commission;
 
 	public void calculateCommision() {
-		double commisionRate=0;
-		
+		double commisionRate = 0;
+
 		switch (this.origin) {
 		case ORIGIN_VISA:
-			commisionRate=ORIGIN_COMMISION_RATE_VISA;
+			commisionRate = ORIGIN_COMMISION_RATE_VISA;
 			break;
 		case ORIGIN_MASTER:
-			commisionRate=ORIGIN_COMMISION_RATE_MASTER;
+			commisionRate = ORIGIN_COMMISION_RATE_MASTER;
 			break;
 		}
 
-		this.commission=this.amount*commisionRate;
+		this.commission = this.amount * commisionRate;
 	}
 	
 	

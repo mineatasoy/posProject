@@ -30,7 +30,7 @@ public class PosApiController {
 	
 	//1st endpoint to query the balance of an account.
 	@GetMapping(value = "/api/account-balance/{accountId}")
-	//http://localhost:8080/api/balance?accountId=4755
+	//http://localhost:8080/api/account-balance?accountId=4755
 	public double getBalanceByAccountId(@PathVariable Long accountId) {
 		
 		return posService.getBalanceByAccountId(accountId);

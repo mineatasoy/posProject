@@ -29,8 +29,8 @@ public class PosServiceImpl implements PosService {
 		return accounts;
 	}
 
-	/* What if account does not exist. java.util.NoSuchElementException: No value
-	 * present */
+	/* What if account does not exist. 
+	 * java.util.NoSuchElementException: No value present */
 	@Override
 	public double getBalanceByAccountId(Long accountId) {
 		double balance = 0;
@@ -64,41 +64,40 @@ public class PosServiceImpl implements PosService {
 		transactionRepository.save(transaction);
 
 		Account account = accountRepository.findById(transaction.getAccountId()).get();
-		account.setBalance(transaction.getAmount() + transaction.getCommission());
+		double balanceNew = account.getBalance() + (transaction.getAmount() - transaction.getCommission());
+		account.setBalance(balanceNew);
 		accountRepository.save(account);
-
+		
 	}
 
 	/*
 	 * Is there any commission calculation for adjustment process? For this case;
 	 * the amount difference and the new commision for new transaction are
 	 * calculated and the balance is updated according to the calculations. Amount
-	 * is added, it might be smaller or bigger. Transactions might be logged.
+	 * is added, it might be smaller or bigger. 
+	 * By the way, Transactions might be logged.
 	 */
 
-	// if there is not a record for this transaction, return a message?!
-
+	/* if there is not a record for this transaction, a message should be sent ?!*/
 	private void updateAccountBalanceByAdjustment(Transaction transaction) {
+		try {
 
-		Transaction transactionOld = transactionRepository.findById(transaction.getTransactionId()).get();
-
-		if (transactionOld != null) {
-
-			Account account = accountRepository.findById(transaction.getAccountId()).get();
-
-			double balance = account.getBalance();
+			Transaction transactionOld = transactionRepository.findById(transaction.getTransactionId()).get();
+		
 			double amountDifference = transaction.getAmount() - transactionOld.getAmount();
 
 			transaction.calculateCommision();
 			double commisionDifference = transaction.getCommission() - transactionOld.getCommission();
 
-			account.setBalance(balance + amountDifference - commisionDifference);
+
+			Account account = accountRepository.findById(transaction.getAccountId()).get();
+			account.setBalance(account.getBalance() + amountDifference - commisionDifference);
 			accountRepository.save(account);
 
 			transactionRepository.save(transaction);
 
-		} else {
-			System.out.println("There is not a proper transaction to adjust.");
+		} catch (Exception e) {
+			System.out.println("No proper transaction...");
 		}
 
 	}
