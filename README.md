@@ -30,8 +30,16 @@ ACCOUNT_ID  	BALANCE
 7735	89.36
 9834	456.45
 
-Transactions are inserted with the requests.
+Transactions might be inserted with the requests.
 
-curl -H "Content-Type: application/json" -X POST -d {\"messageType\":\"ADJUSTMENT\",\"transactionId\":\"54622353626262626\",\"accountId\":\"4755\",\"origin\":\"VISA\",\"amount\":\"10.01\"} http://localhost:8080/api/payment
+Payment & Adjustment
 
-curl -H "Content-Type: application/json" -X POST -d {\"messageType\":\"ADJUSTMENT\",\"transactionId\":\"54622353626262623\",\"accountId\":\"4755\",\"origin\":\"VISA\",\"amount\":\"10.01\"} http://localhost:8080/api/payment
+curl -H "Content-Type: application/json" -X POST -d {\"messageType\":\"PAYMENT\",\"transactionId\":\"54622353626262628\",\"accountId\":\"4755\",\"origin\":\"MASTER\",\"amount\":\"10.01\"} http://localhost:8080/api/payment
+
+curl -H "Content-Type: application/json" -X POST -d {\"messageType\":\"ADJUSTMENT\",\"transactionId\":\"54622353626262628\",\"accountId\":\"4755\",\"origin\":\"MASTER\",\"amount\":\"1000.01\"} http://localhost:8080/api/payment
+
+
+
+curl -H "Content-Type: application/json" -X POST -d {\"messageType\":\"PAYMENT\",\"transactionId\":\"54622353626262626\",\"accountId\":\"4755\",\"origin\":\"VISA\",\"amount\":\"10.01\"} http://localhost:8080/api/payment
+
+curl -H "Content-Type: application/json" -X POST -d {\"messageType\":\"PAYMENT\",\"transactionId\":\"54622353626262623\",\"accountId\":\"4755\",\"origin\":\"VISA\",\"amount\":\"10.01\"} http://localhost:8080/api/payment
