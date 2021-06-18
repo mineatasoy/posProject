@@ -73,8 +73,9 @@ public class PosServiceImpl implements PosService {
 	/*
 	 * Is there any commission calculation for adjustment process? For this case;
 	 * the amount difference and the new commision for new transaction are
-	 * calculated and the balance is updated according to the calculations. Amount
-	 * is added, it might be smaller or bigger. 
+	 * calculated and the balance is updated according to the calculations. AmountDifference
+	 * is added, it might be smaller than 0. 
+	 * 
 	 * By the way, Transactions might be logged.
 	 */
 
